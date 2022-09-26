@@ -1,15 +1,12 @@
-package co.cobre.qa.fwk.driver;
+package com.deviget.ui;
 
 
-import co.cobre.qa.fwk.core.pageObjects.BasePage;
-import co.cobre.qa.prj.driver.CobreDriverManager;
+
+import com.deviget.ui.model.BasePage;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class DriverManager {
     private static Logger logger = Logger.getLogger(DriverManager.class);
@@ -34,6 +31,13 @@ public class DriverManager {
         }
     }
     public static RemoteWebDriver getDriverInstance() {
+        if(localDriver.get() == null){
+            try {
+                createDriverInstance(TestType.WEB_CHROME);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return localDriver.get();
     }
 
@@ -61,11 +65,13 @@ public class DriverManager {
     }
 
     public static void dismissDriver() {
+        logger.info("Dismissing current driver.");
         if(localDriver.get() != null){
+            getDriverInstance().close();
             getDriverInstance().quit();
+            logger.info("Current driver dismissed!");
         }
     }
-
     public static void resetDriver() {
         dismissCurrentDriver();
     }

@@ -1,4 +1,4 @@
-package com.deviget.ui.model;
+package com.deviget.ui;
 
 import java.util.Calendar;
 

@@ -1,8 +1,6 @@
-package co.cobre.qa.fwk.driver;
+package com.deviget.ui;
 
 import org.openqa.selenium.remote.RemoteWebDriver;
-
-import java.net.MalformedURLException;
 
 public interface IDriverBuilder {
     RemoteWebDriver getDriver() throws Exception;
