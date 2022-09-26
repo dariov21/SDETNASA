@@ -15,9 +15,85 @@
         <testng.version>6.14.3</testng.version>
         <rest.assured.version>5.2.0</rest.assured.version>
         <serenity.version>3.1.0</serenity.version>
+        <selenium.version>3.141.59</selenium.version>
+
     </properties>
 
+    <profiles>
+    <profile>
+        <id>WEB</id>
+        <properties>
+            <nasa.env>QA</nasa.env>
+            <nasa.run.type>WEB_CHROME</nasa.run.type>
+            <nasa.testng.config>src/test/resources/testngWeb.xml</nasa.testng.config>
+            <nasa.qa.url>https://api.nasa.gov/index.html</nasa.qa.url>
+        </properties>
+    </profile>
+    <profile>
+        <id>API</id>
+        <properties>
+            <nasa.testng.config>src/test/resources/testng.xml</nasa.testng.config>
+        </properties>
+    </profile>
+  </profiles>
+
     <dependencies>
+
+        <!-- SELENIUM -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-remote-driver</artifactId>
+            <version>${selenium.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>${selenium.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--WebDriverManager -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>3.6.1</version>
+        </dependency>
+
+        <!-- APACHE COMMONS -->
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>1.10</version>
+        </dependency>
+
 
         <dependency>
             <groupId>com.google.inject</groupId>
@@ -83,7 +159,7 @@
                 <version>3.0.0-M4</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+                        <suiteXmlFile>${nasa.testng.config}</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
@@ -170,7 +246,7 @@
                             <goal>aggregate</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>.</outputDirectory>
+                            <outputDirectory>./target/serenity</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
