@@ -2,7 +2,7 @@
 ## Technologies
  1. TestNG - test framework.
  2. Restassured - api client framework.
- 3. Restassured - api client framework.
+ 3. Kotlin - data classes.
  4. Serenity - reporting tool.
  5. maven - project management tool.
 
